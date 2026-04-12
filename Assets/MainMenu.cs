@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement; // ← TAMBAH INI
 
 public class MainMenu : MonoBehaviour
 {
@@ -23,5 +24,11 @@ public class MainMenu : MonoBehaviour
     {
         Application.Quit();
         Debug.Log("Game keluar (di editor gak kelihatan)");
+    }
+
+    // 🔥 TAMBAHAN BUAT PINDAH SCENE
+    public void NewGame()
+    {
+        SceneManager.LoadScene("gameplayscene");
     }
 }

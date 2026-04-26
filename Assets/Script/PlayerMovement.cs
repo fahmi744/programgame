@@ -1,36 +1,14 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
-public class PlayerMovement : MonoBehaviour
+[RequireComponent(typeof(PlayerInput))]
+public class PlayerMovement : Move
 {
-    public float speed = 5f;
-    public float jumpForce = 7f;
-
-    Rigidbody2D rb;
-    bool ground;
-
-    void Start()
+  
+    private void OnMove(InputValue value)
     {
-        rb = GetComponent<Rigidbody2D>();
+        Vector2 input = value.Get<Vector2>();
+        currentinput = input.normalized;
     }
 
-    void Update()
-    {
-        float move = Input.GetAxisRaw("Horizontal");
-        rb.velocity = new Vector2(move * speed, rb.velocity.y);
-
-        if (Input.GetKeyDown(KeyCode.Space) && ground)
-        {
-            rb.velocity = new Vector2(rb.velocity.x, jumpForce);
-        }
-    }
-
-    void OnCollisionEnter2D(Collision2D col)
-    {
-        ground = true;
-    }
-
-    void OnCollisionExit2D(Collision2D col)
-    {
-        ground = false;
-    }
 }

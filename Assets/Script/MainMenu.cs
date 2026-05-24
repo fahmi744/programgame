@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement; // ← TAMBAH INI
+using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour
 {
@@ -26,9 +26,23 @@ public class MainMenu : MonoBehaviour
         Debug.Log("Game keluar (di editor gak kelihatan)");
     }
 
-    // 🔥 TAMBAHAN BUAT PINDAH SCENE
     public void NewGame()
     {
+        PlayerPrefs.DeleteAll(); // hapus save lama, mulai dari awal
+        PlayerPrefs.Save();
         SceneManager.LoadScene("gameplayscene");
+    }
+
+    public void Play()
+    {
+        // hanya bisa lanjut kalau ada save
+        if (PlayerPrefs.GetInt("HasSave", 0) == 1)
+        {
+            SceneManager.LoadScene("gameplayscene");
+        }
+        else
+        {
+            Debug.Log("Belum ada save!");
+        }
     }
 }
